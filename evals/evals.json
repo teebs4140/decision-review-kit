@@ -1,0 +1,73 @@
+{
+  "skill_name": "decision-review-kit",
+  "evals": [
+    {
+      "id": 0,
+      "name": "fresh-review-from-project",
+      "prompt": "Dana runs support here and she has to sign off on our ticket severity rules before we ship the new triage service. I've tried twice to get her to review the rules doc and both times she said she couldn't tell from it whether the numbers were real. The rules, the code and my thread with her are in this directory. She has about twenty minutes and she is not technical. Get me something I can send her, and keep track of what she decides \u2014 I want a record I can point at in three months when someone asks why trial accounts work the way they do.",
+      "expected_output": "A self-contained HTML review form built from a spec, containing roughly 5-8 answerable decisions drawn from the actual material (trial accounts, the burst rule, the 'down' keyword, reopened tickets, partner portal, non-English sentiment), each with a cost/count attached and a recommendation. Plus saved register files (decision log and open questions) set up to receive her answers. Should not invent decisions the material does not support, and should not ask Dana to review code.",
+      "files": [
+        "fixtures/ticket-triage/"
+      ],
+      "assertions": [
+        "Produces a self-contained review page (HTML) with no external network requests",
+        "Puts between 4 and 10 decisions to Dana \u2014 not a 20-item survey and not 2",
+        "Every card ends in an answerable fork (a question with options), not a description that trails off",
+        "At least 4 of the 6 known-unresolved items from RULES.md appear as questions: trial accounts, the 5-in-30 burst rule, the 'down' keyword, reopened tickets inheriting severity, partner portal defaulting to S3, non-English sentiment skip",
+        "Counts from the material are attached to the decisions (e.g. 4,100 trial tickets/mo, 61 of 244 burst S1s from one retry loop, 890 partner, 2,240 non-English)",
+        "Each decision carries a stated recommendation, not just options",
+        "A durable record separate from the form exists (decision log and/or open-questions file) ready to receive Dana's answers",
+        "Dana is not asked to review code, approve the implementation, or answer anything requiring reading triage.py",
+        "Reasoning/derivation is secondary to the question (folded, appended, or otherwise not blocking the answer)",
+        "The reviewer can record their answers in the artifact itself (input controls present), rather than having to reply by email",
+        "Answers survive a reload \u2014 the artifact persists what has been entered rather than losing it when the tab closes",
+        "The artifact can produce an attributable file to send back (an export, with the respondent's name captured)"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "process-returned-feedback",
+      "prompt": "Two of the three reviewers sent back their answer files from the stockout definition review. The third replied to the email instead of using the form, which is very her. Work out where we landed, what's still open, and set up the next round. Spec and everything that came back is in this directory.",
+      "expected_output": "Correctly classifies the six items: agreement on SO-01/SO-03/SO-06, conflict on SO-02 and SO-04, and SO-05 answered by two people (one off-channel). Draft decision entries with effect lines, an open list, and a round-2 spec whose IDs do not reuse SO-. Must incorporate Priya's emailed answers and label them as off-channel rather than presenting them as form responses. Should surface that Priya's point about the two-hour feed refresh makes the one-hour option unmeasurable, which changes the SO-02 tie-break rather than merely tallying it 2-1.",
+      "files": [
+        "fixtures/returned-round1/"
+      ],
+      "assertions": [
+        "SO-01, SO-03 and SO-06 are identified as agreed",
+        "SO-02 and SO-04 are identified as conflicts/disagreements",
+        "Priya's emailed answers are incorporated rather than ignored",
+        "Priya's answers are labelled as having come from email rather than presented as form responses",
+        "SO-05's status accounts for both Elena's form answer and Priya's email concurrence",
+        "Priya's point that the on-hand feed refreshes every two hours is surfaced as making the one-hour option unmeasurable \u2014 treated as changing the SO-02 decision, not just tallied 2-1",
+        "Any next-round items use an ID namespace that does not reuse SO-",
+        "Draft decision entries state what changes in the work (an effect), not only what was chosen",
+        "An open-questions list exists identifying what is unresolved and who it waits on",
+        "The reviewer can record their answers in the artifact itself (input controls present), rather than having to reply by email",
+        "Answers survive a reload \u2014 the artifact persists what has been entered rather than losing it when the tab closes",
+        "The artifact can produce an attributable file to send back (an export, with the respondent's name captured)"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "vague-ask-long-artifact",
+      "prompt": "I need Dana to sign off on this cohort definition by Friday and I know if I just send it she'll skim it and say fine, and then in six months when the model does something weird it'll turn out she never actually agreed to the thing that caused it. How do I make this into something she can actually engage with?",
+      "expected_output": "Recognises this as a decision review and produces one. The judgement calls buried in the doc that should surface as questions: the 30-day tenure floor selecting a lower-risk population than the model will score, downgrades not counting as churn despite exceeding cancellations in revenue terms, trial-only exclusion, the partial Q4-2025 label, and the null-imputation on days_since_last_login. Should turn these into forks with numbers attached, not restate the document. Should not ask Dana to approve the feature list or the model architecture.",
+      "files": [
+        "fixtures/churn-doc/"
+      ],
+      "assertions": [
+        "Produces an actual review artifact, not only advice about how to run a review",
+        "At least 4 of these 5 buried judgement calls surface as questions: the 30-day tenure floor, downgrades not counting as churn, trial-only exclusion, the partial Q4-2025 label, null imputation on days_since_last_login",
+        "The tenure-floor question states the consequence that the training population is lower-risk than the scored population (11% removed, ~3x churn rate)",
+        "The downgrade question surfaces that downgrades (\u00a34.1M) exceed cancellations (\u00a33.3M) in revenue terms",
+        "Questions are phrased as forks with options, not as restatements of the document",
+        "Dana is not asked to approve the feature list or the model architecture",
+        "Produces a self-contained page with no external network requests",
+        "A record of what Dana decides is set up, separate from the artifact sent to her",
+        "The reviewer can record their answers in the artifact itself (input controls present), rather than having to reply by email",
+        "Answers survive a reload \u2014 the artifact persists what has been entered rather than losing it when the tab closes",
+        "The artifact can produce an attributable file to send back (an export, with the respondent's name captured)"
+      ]
+    }
+  ]
+}

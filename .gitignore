@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+
+# built artifacts — regenerate from the spec
+*.html
+!examples/*.html
+
+# returned answer files are somebody else's words; keep them out of git
+returned/
+replies/
+registers/
