@@ -10,6 +10,15 @@ Local clone of that repo: `~/AI-work/dcri-claude-skills` (branches `dev` and
 `main` tracked; `az` CLI is logged in). Marketplace memory and rules:
 `~/AI-work/dcri-claude-skills/CONTRIBUTING.md` and `benchmarks/README.md`.
 
+## Workspace
+
+Eval runs, fixtures, review pages and benchmark evidence live in
+`~/AI-work/decision-review-kit-workspace/`. That is the skill-creator workspace: nothing in it ships, and nothing
+should be parked on the share under `/dcri/shared_code/code_repository/archive/`
+— that folder was emptied into these workspaces on 2026-08-26. Copy a
+`review.html` to the share only when someone without home-directory access
+needs to open it, and treat the copy as disposable.
+
 ## Where this repo's files land in the marketplace repo
 
 | Here | Marketplace repo |
